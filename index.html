@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en" data-time="dusk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aishwarya K G — Pixel Portfolio</title>
+  <meta name="description" content="Aishwarya K G — Computer Science (AI &amp; ML) undergraduate building full-stack and machine-learning systems. Projects, skills, research and a chat with Pixel Aishwarya.">
+  <meta name="theme-color" content="#0d0f1f">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Title screen (shown by script.js once per browser session) -->
+  <div id="boot" class="boot" hidden>
+    <div class="boot__inner">
+      <figure class="frame boot__face"><img src="assets/face.png" alt="" width="335" height="335"></figure>
+      <p class="eyebrow">CAREER SELECT</p>
+      <p class="logo boot__logo">AISHWARYA K G</p>
+      <p class="boot__sub">A PORTFOLIO QUEST</p>
+      <button id="bootStart" class="btn boot__btn" type="button">&gt; PRESS START</button>
+      <p class="boot__hint">click anywhere or press Enter</p>
+    </div>
+  </div>
+
+  <header class="hud">
+    <a class="hud__brand" href="#start">
+      <img src="assets/face.png" alt="" width="36" height="36">
+      <span>AISHWARYA K G</span>
+    </a>
+    <nav class="hud__nav" aria-label="Sections">
+      <a href="#about">ABOUT</a>
+      <a href="#skills">SKILLS</a>
+      <a href="#quest">QUEST</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#research">RESEARCH</a>
+      <a href="#trophies">TROPHIES</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+    <div class="hud__tools">
+      <span class="hud__xp" title="Sections explored">XP <b id="xpCount">0</b>/7</span>
+      <button id="timeToggle" class="hud__btn" type="button" aria-label="Switch the scene to night">NIGHT</button>
+      <button id="soundToggle" class="hud__btn" type="button" aria-pressed="false" aria-label="Sound effects">SFX OFF</button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section id="start" class="hero">
+      <div class="scene" aria-hidden="true">
+        <div class="scene__stars"></div>
+        <div class="scene__sun"></div>
+        <div class="scene__city"></div>
+        <div class="scene__grass"></div>
+      </div>
+      <div class="wrap hero__grid">
+        <div class="hero__text px-box">
+          <p class="eyebrow">PLAYER 1 · READY</p>
+          <h1 class="logo">AISHWARYA K G</h1>
+          <p class="role" aria-label="Full-stack developer, machine-learning builder, root-cause hunter"><span id="typed">FULL-STACK DEVELOPER</span><span class="caret" aria-hidden="true">_</span></p>
+          <p class="lede">Computer Science (AI &amp; ML) undergraduate in Bengaluru who builds, tests, deploys and debugs full-stack and machine-learning systems, and enjoys tracing a failure all the way to its root cause.</p>
+          <div class="hero__cta">
+            <a class="btn" href="#projects">&gt; VIEW PROJECTS</a>
+            <button class="btn btn--blue" type="button" data-open-chat>TALK TO PIXEL ME</button>
+          </div>
+          <ul class="stats">
+            <li><b>9.00</b><span>CGPA out of 10</span></li>
+            <li><b>100+</b><span>automated tests</span></li>
+            <li><b>6</b><span>hackathon builds in 2026</span></li>
+            <li><b>2</b><span>research projects</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__cards">
+          <figure class="frame frame--body">
+            <img src="assets/body.png" width="248" height="760" alt="Pixel-art avatar of Aishwarya standing in a navy blazer, cream blouse and black trousers">
+          </figure>
+          <figure class="frame frame--face">
+            <img src="assets/face.png" width="335" height="335" alt="Pixel-art portrait of Aishwarya with long wavy brown hair">
+          </figure>
+          <p class="tag tag--a">PROFESSIONAL</p>
+          <p class="tag tag--b">CHAR: AISHWARYA</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="sec" data-track>
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">STAGE 01 · PLAYER BIO</p>
+          <h2>About</h2>
+        </header>
+        <div class="two-col">
+          <div class="px-box">
+            <h3 class="box-title">BACKSTORY</h3>
+            <p>I'm a Computer Science (AI &amp; ML) undergraduate with a 9.00 CGPA who likes owning a system end to end: building it, testing it, deploying it and debugging it when it misbehaves.</p>
+            <p>I've shipped multiple working applications backed by 100+ automated tests, with hands-on use of Linux shell scripting, REST APIs, SQL, Docker and cloud deployment.</p>
+            <p>My foundations are data structures, algorithms, OOP, operating systems and databases. I also write clear documentation, so other people can run and support what I build.</p>
+            <ul class="taglist" aria-label="Based in and languages">
+              <li>BENGALURU, INDIA</li>
+              <li>ENGLISH</li>
+              <li>KANNADA</li>
+              <li>HINDI</li>
+            </ul>
+          </div>
+          <div class="px-box">
+            <h3 class="box-title">TRAINING GROUNDS</h3>
+            <ol class="timeline">
+              <li>
+                <p class="timeline__when">2024 – 2028 (EXPECTED)</p>
+                <p class="timeline__what">B.Tech, Computer Science &amp; Engineering (AI &amp; ML)</p>
+                <p class="timeline__where">Dayananda Sagar University, Bengaluru · CGPA 9.00 / 10</p>
+                <p class="timeline__note">Coursework: Data Structures &amp; Algorithms, Operating Systems, Databases, Computer Networks, Object-Oriented Programming, Machine Learning, Artificial Intelligence</p>
+              </li>
+              <li>
+                <p class="timeline__when">2022 – 2024</p>
+                <p class="timeline__what">Pre-University, PCMB · 95%</p>
+                <p class="timeline__where">MES Kishora Kendra PU College</p>
+              </li>
+              <li>
+                <p class="timeline__when">2022</p>
+                <p class="timeline__what">State Board · 99%</p>
+                <p class="timeline__where">MES Kishora Kendra High School</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section id="skills" class="sec" data-track>
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">STAGE 02 · INVENTORY</p>
+          <h2>Skills</h2>
+          <p class="sec-sub">Pick an item to see where I've used it.</p>
+        </header>
+        <div class="px-box inventory">
+          <div id="skillTabs" class="tabs" role="group" aria-label="Skill categories"></div>
+          <div id="skillGrid" class="slots"></div>
+          <div id="skillReadout" class="readout" aria-live="polite">
+            <p class="readout__title">NO ITEM SELECTED</p>
+            <p class="readout__body">Choose any skill above.</p>
+          </div>
+        </div>
+        <noscript><p class="px-box">Skills: Python, Java, JavaScript, TypeScript, Kotlin, C, SQL, Bash, Docker, Node.js, Express, FastAPI, React, Next.js, Android, scikit-learn, TensorFlow/Keras, LightGBM, RAG and more.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section id="quest" class="sec" data-track>
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">STAGE 03 · MAIN QUEST</p>
+          <h2>Experience</h2>
+        </header>
+        <article class="px-box quest">
+          <div class="quest__top">
+            <p class="badge badge--live"><i></i>ACTIVE QUEST</p>
+            <p class="quest__when">2026 – PRESENT</p>
+          </div>
+          <h3 class="quest__title">AI &amp; Agentic AI Intern</h3>
+          <p class="quest__org">IBM SkillsBuild · Edunet Foundation (AICTE)</p>
+          <p class="quest__proj"><b>ArthSaathi</b>, an AI agent for digital financial literacy</p>
+          <ul class="chips">
+            <li>IBM watsonx.ai</li><li>IBM Granite</li><li>Langflow</li><li>Docling</li><li>JavaScript</li>
+          </ul>
+          <ul class="objectives">
+            <li>Built a retrieval-augmented assistant that answers questions on UPI, loans, budgeting, scam safety and government schemes, grounded in RBI, NPCI and government documents and naming the source for each answer.</li>
+            <li>Added tool calling for EMI, interest and budget calculations, plus a scam checker that flags red flags in pasted SMS/WhatsApp messages and gives next steps (1930 helpline, cybercrime portal).</li>
+            <li>Wrote safety guardrails: the agent never asks for a PIN, OTP or CVV, gives no investment tips, says it is unsure instead of guessing, and replies in the user's own language.</li>
+            <li>Built the web chat front-end and a step-by-step setup guide so the flow can be imported and run end to end by another user.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="sec" data-track>
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">STAGE 04 · LEVEL SELECT</p>
+          <h2>Projects</h2>
+          <p class="sec-sub">Six builds from 2026. Open a level for the full run-down.</p>
+        </header>
+        <div id="projFilters" class="tabs" role="group" aria-label="Filter projects"></div>
+        <div id="projGrid" class="levels"></div>
+        <noscript><p class="px-box">Projects: Offer Lens, Netra Sahayak, SALVAGE, Not Yet, PCOS Early-Risk Screening Assistant and Digital Dark Spot. See github.com/aishwaryakg2415.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ============ RESEARCH ============ -->
+    <section id="research" class="sec" data-track>
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">STAGE 05 · SIDE QUESTS</p>
+          <h2>Research</h2>
+        </header>
+        <div class="two-col">
+          <article class="px-box">
+            <p class="badge badge--gold">MANUSCRIPT IN PREPARATION</p>
+            <h3 class="card-title">ICU Mortality Prediction</h3>
+            <p>LightGBM on the WiDS 2020 ICU dataset, with calibration and subgroup-fairness analysis.</p>
+            <ul class="loot">
+              <li><b>0.906</b><span>AUROC, 5-fold cross-validation</span></li>
+              <li><b>0.905</b><span>AUROC on hospital-held-out data</span></li>
+              <li><b>+0.044</b><span>AUROC over the APACHE IV score (approx.)</span></li>
+            </ul>
+          </article>
+          <article class="px-box">
+            <p class="badge badge--sky">IEEE CONFERENCE PAPER · TEAM</p>
+            <h3 class="card-title">SACENet</h3>
+            <p>Sarcasm-Aware Explainable Early Detection of Cyberbullying in Hinglish.</p>
+            <p>A sequence-level model that detects escalation across a conversation rather than judging single messages in isolation.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TROPHIES ============ -->
+    <section id="trophies" class="sec" data-track>
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">STAGE 06 · TROPHY ROOM</p>
+          <h2>Achievements</h2>
+        </header>
+        <div class="trophies">
+          <article class="px-box trophy">
+            <svg class="trophy__icon" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path class="t-cup" d="M4 1h8v2h3v4h-1v1h-2v2h-1v1H9v2h2v2H5v-2h2v-2H5v-1H4V8H2V7H1V3h3z"/><path class="t-hole" d="M2 4h2v3H2zM12 4h2v3h-2z"/><path class="t-shine" d="M6 3h1v4H6z"/></svg>
+            <h3 class="card-title">Smart India Hackathon 2026</h3>
+            <p>Team selected for the internal (department-level) round with Netra Sahayak.</p>
+          </article>
+          <article class="px-box trophy">
+            <svg class="trophy__icon" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path class="t-cup" d="M4 1h8v2h3v4h-1v1h-2v2h-1v1H9v2h2v2H5v-2h2v-2H5v-1H4V8H2V7H1V3h3z"/><path class="t-hole" d="M2 4h2v3H2zM12 4h2v3h-2z"/><path class="t-shine" d="M6 3h1v4H6z"/></svg>
+            <h3 class="card-title">6 hackathon projects in 2026</h3>
+            <p>Built and submitted, including the Razorpay AI Buildathon, Smart India Hackathon, Hacktivate 2.0 and the YouCam Skin AI Hackathon.</p>
+          </article>
+          <article class="px-box trophy">
+            <svg class="trophy__icon trophy__icon--scroll" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path class="t-paper" d="M3 2h10v12H3z"/><path class="t-ink" d="M5 4h6v1H5zM5 6h6v1H5zM5 8h4v1H5z"/><path class="t-cup" d="M9 10h3v3H9z"/></svg>
+            <h3 class="card-title">Certifications</h3>
+            <ul class="certs">
+              <li>Cloud Computing <span>IBM</span></li>
+              <li>Problem Solving <span>HackerRank</span></li>
+              <li>Python <span>HackerRank</span></li>
+              <li>Machine Learning <span>Humans Care Foundation</span></li>
+              <li>Introduction to Symbolic Math <span>MATLAB</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="sec sec--last" data-track>
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="eyebrow">STAGE 07 · SAVE POINT</p>
+          <h2>Contact</h2>
+        </header>
+        <div class="px-box contact">
+          <div>
+            <p class="contact__big">WANT TO TEAM UP?</p>
+            <p>Got an internship, a hackathon team slot or a stubborn bug? Send me a message.</p>
+            <a class="btn" href="mailto:aishwaryakg04xb@gmail.com">&gt; EMAIL ME</a>
+          </div>
+          <ul class="warp">
+            <li><a href="https://github.com/aishwaryakg2415" target="_blank" rel="noopener"><b>GITHUB</b><span>github.com/aishwaryakg2415</span></a></li>
+            <li><a href="https://www.linkedin.com/in/aishwarya-k-g/" target="_blank" rel="noopener"><b>LINKEDIN</b><span>linkedin.com/in/aishwarya-k-g</span></a></li>
+            <li><a href="https://leetcode.com/u/aishwarya_kg_/" target="_blank" rel="noopener"><b>LEETCODE</b><span>leetcode.com/u/aishwarya_kg_</span></a></li>
+            <li><a href="mailto:aishwaryakg04xb@gmail.com"><b>EMAIL</b><span>aishwaryakg04xb@gmail.com</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>© 2026 AISHWARYA K G · HAND-BUILT WITH HTML, CSS &amp; VANILLA JS</p>
+  </footer>
+
+  <!-- ============ PROJECT DIALOG ============ -->
+  <dialog id="projDialog" class="modal" aria-labelledby="projTitle">
+    <div class="modal__bar">
+      <p id="projLevel" class="eyebrow"></p>
+      <button id="projClose" class="hud__btn" type="button" aria-label="Close project details">X CLOSE</button>
+    </div>
+    <h3 id="projTitle" class="modal__title"></h3>
+    <p id="projSub" class="modal__sub"></p>
+    <ul id="projTech" class="chips"></ul>
+    <ul id="projBullets" class="objectives"></ul>
+    <div id="projLinks" class="modal__links"></div>
+  </dialog>
+
+  <!-- ============ CHATBOT ============ -->
+  <div id="chatHint" class="chat-hint" hidden>Psst. Ask me anything!</div>
+  <button id="chatFab" class="chat-fab" type="button" aria-expanded="false" aria-controls="chat" aria-label="Open chat with Pixel Aishwarya">
+    <img src="assets/face.png" alt="" width="56" height="56">
+    <span>CHAT</span>
+  </button>
+  <section id="chat" class="chat" hidden aria-label="Chat with Pixel Aishwarya">
+    <header class="chat__head">
+      <img src="assets/face.png" alt="" width="40" height="40">
+      <div>
+        <p class="chat__name">PIXEL AISHWARYA</p>
+        <p class="chat__meta">scripted NPC · answers from my resume</p>
+      </div>
+      <button id="chatClose" class="hud__btn" type="button" aria-label="Close chat">X</button>
+    </header>
+    <div id="chatLog" class="chat__log" role="log" aria-live="polite" tabindex="0"></div>
+    <div id="chatChips" class="chat__chips"></div>
+    <form id="chatForm" class="chat__form" autocomplete="off">
+      <input id="chatInput" type="text" maxlength="200" placeholder="Ask about projects, skills..." aria-label="Your message">
+      <button class="btn" type="submit">SEND</button>
+    </form>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
