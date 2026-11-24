@@ -15,14 +15,64 @@
     leetcode: 'https://leetcode.com/u/aishwarya_kg_/',
   };
 
-  const SKILLS = [
-    { cat: 'LANGUAGES', items: ['Python', 'Java', 'JavaScript', 'TypeScript', 'Kotlin', 'C', 'SQL', 'Bash'] },
-    { cat: 'SYSTEMS & TOOLS', items: ['Linux/Unix shell', 'Git & GitHub', 'Docker', 'REST APIs', 'Postman/curl', 'Gradle', 'Android Debug Bridge (adb)'] },
-    { cat: 'FRAMEWORKS', items: ['Node.js', 'Express', 'FastAPI', 'React', 'Next.js', 'Android (Room)', 'Tailwind CSS'] },
-    { cat: 'DATA & CLOUD', items: ['SQLite', 'Room (SQL)', 'IBM Cloud (watsonx.ai)', 'Render', 'Vercel'] },
-    { cat: 'ML / AI', items: ['scikit-learn', 'TensorFlow/Keras', 'LightGBM', 'pandas', 'NumPy', 'SHAP', 'LLM APIs', 'RAG'] },
-    { cat: 'CS FUNDAMENTALS', items: ['Data structures', 'Algorithms & complexity', 'OOP design', 'Operating systems', 'DBMS', 'Computer networks (DNS, HTTP)'] },
+  // The stack map: BUILD / REASON / SHIP / EVOLVE branches.
+  const STACK = [
+    {
+      tier: 'BUILD', name: 'FRONTEND', accent: '#8fbcff',
+      blurb: 'Interfaces that load fast and stay honest about what they know.',
+      groups: [{ items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS'] }],
+    },
+    {
+      tier: 'BUILD', name: 'BACKEND', accent: '#8fbcff',
+      blurb: 'APIs and services with tests around every endpoint.',
+      groups: [
+        { label: 'SERVICES', items: ['Python', 'Java', 'Node.js', 'Express', 'FastAPI', 'REST APIs'] },
+        { label: 'DATA STORES', items: ['SQL', 'SQLite', 'Room (SQL)'] },
+      ],
+    },
+    {
+      tier: 'REASON', name: 'AI / ML', accent: '#e08aa8',
+      blurb: 'Models and agents that explain their answers.',
+      groups: [
+        { label: 'MODELS', items: ['scikit-learn', 'TensorFlow/Keras', 'LightGBM', 'pandas', 'NumPy', 'SHAP'] },
+        { label: 'AGENTS & LLMS', items: ['LLM APIs', 'RAG', 'IBM Cloud (watsonx.ai)'] },
+      ],
+    },
+    {
+      tier: 'SHIP', name: 'CLOUD & DELIVERY', accent: '#7fd6a0',
+      blurb: 'Containers, deploys and scripts that get it running anywhere.',
+      groups: [{ items: ['Docker', 'Render', 'Vercel', 'Linux/Unix shell', 'Bash', 'Git & GitHub', 'Postman/curl'] }],
+    },
+    {
+      tier: 'EVOLVE', name: 'MOBILE', accent: '#f8b83a',
+      blurb: 'On-device apps that keep working with no network.',
+      groups: [{ items: ['Kotlin', 'Android (Room)', 'Gradle', 'Android Debug Bridge (adb)'] }],
+    },
+    {
+      tier: 'EVOLVE', name: 'CS FUNDAMENTALS', accent: '#f8b83a',
+      blurb: 'The foundations under everything else.',
+      groups: [{ items: ['C', 'Data structures', 'Algorithms & complexity', 'OOP design', 'Operating systems', 'DBMS', 'Computer networks (DNS, HTTP)'] }],
+    },
   ];
+  // Flat view used by the readout and the chatbot.
+  const SKILLS = STACK.map((b) => ({ cat: b.name, items: b.groups.flatMap((g) => g.items) }));
+
+  // Certifications (LinkedIn + resume), newest first. `url` is the public credential page.
+  const CERTS = [
+    { name: 'Internship in Emerging Technologies: Agentic AI, Cyber Security & Quantum Computing', by: 'Edunet Foundation · AICTE · IBM SkillsBuild', when: 'NOV 2026' },
+    { name: 'AWS Academy Graduate: Cloud Foundations', by: 'Amazon Web Services', when: 'NOV 2026', url: 'https://www.credly.com/badges/44337d96-bf91-425e-ac54-a00f38cf587d' },
+    { name: 'Cloud Computing Fundamentals', by: 'IBM', when: 'SEP 2026', url: 'https://www.credly.com/badges/07c2e5ae-76af-46b0-ac53-832d7402baa3' },
+    { name: 'Supervised Machine Learning: Regression and Classification', by: 'DeepLearning.AI', when: 'SEP 2026', url: 'https://www.coursera.org/account/accomplishments/records/O9N8WAIRS34E' },
+    { name: 'Certificate of Participation: Bug Bash', by: 'Unstop', when: 'SEP 2026', url: 'https://unstop.com/certificate-preview/3008dbdf-d4f6-4f33-9829-978e92415092' },
+    { name: 'Certificate of Excellence in Machine Learning', by: 'Humans Care Foundation', when: 'AUG 2025' },
+    { name: 'Problem Solving', by: 'HackerRank' },
+    { name: 'Python', by: 'HackerRank' },
+    { name: 'Introduction to Symbolic Math', by: 'MATLAB' },
+  ];
+
+  // Public profiles used by the live-stats cards.
+  const GITHUB_USER = 'aishwaryakg2415';
+  const LEETCODE_USER = 'aishwarya_kg_';
 
   // Extra words the chatbot recognises for each skill.
   const SKILL_ALIASES = {
@@ -44,7 +94,7 @@
 
   const PROJECTS = [
     {
-      id: 'offer-lens', accent: '#ee7a5a', kinds: ['WEB', 'LLM'],
+      id: 'offer-lens', accent: '#ee7a5a', kinds: ['WEB', 'LLM'], cat: 'SECURITY / FULL-STACK',
       title: 'Offer Lens', sub: 'Explainable job-scam risk checker', date: 'OCT 2026',
       stat: ['35', 'offline tests covering every API endpoint'],
       tech: ['Node.js', 'Express', 'SQLite', 'Docker', 'Render', 'Claude/Groq APIs'],
@@ -60,7 +110,7 @@
       aliases: ['offer lens', 'offerlens', 'job scam', 'job-scam', 'recruiter'],
     },
     {
-      id: 'netra-sahayak', accent: '#8fbcff', kinds: ['MOBILE', 'ML'],
+      id: 'netra-sahayak', accent: '#8fbcff', kinds: ['MOBILE', 'ML'], cat: 'MOBILE / HEALTH AI',
       title: 'Netra Sahayak', sub: 'Offline diabetic retinopathy screening app · SIH 2026, team', date: 'AUG – OCT 2026',
       stat: ['0.876', 'quadratic weighted kappa on the DDR test set'],
       tech: ['Kotlin', 'Android', 'LiteRT', 'Room', 'Python', 'TensorFlow', 'Bash'],
@@ -76,7 +126,7 @@
       aliases: ['netra', 'sahayak', 'retinopathy', 'retina', 'retinal', 'diabetic', 'eye'],
     },
     {
-      id: 'salvage', accent: '#7fd6a0', kinds: ['ML', 'WEB'],
+      id: 'salvage', accent: '#7fd6a0', kinds: ['ML', 'WEB'], cat: 'AI / FINTECH',
       title: 'SALVAGE', sub: 'AI revenue leak investigator · Razorpay AI Buildathon 2026', date: 'AUG – SEP 2026',
       stat: ['0.97', 'ROC-AUC predicting recoverable payments'],
       tech: ['Python', 'FastAPI', 'Pydantic', 'scikit-learn', 'pandas', 'React'],
@@ -91,7 +141,7 @@
       aliases: ['salvage', 'revenue', 'razorpay', 'payment', 'payments'],
     },
     {
-      id: 'not-yet', accent: '#e08aa8', kinds: ['WEB', 'LLM'],
+      id: 'not-yet', accent: '#e08aa8', kinds: ['WEB', 'LLM'], cat: 'AI / PWA',
       title: 'Not Yet', sub: 'Skincare check for teens · YouCam Skin AI Hackathon', date: 'NOV 2026',
       stat: ['22', 'tests, plus an offline demo mode'],
       tech: ['Node.js', 'Progressive Web App', 'YouCam API', 'Gemini', 'BM25 retrieval'],
@@ -106,7 +156,7 @@
       aliases: ['not yet', 'skincare', 'skin care', 'youcam', 'teens'],
     },
     {
-      id: 'pcos', accent: '#f8b83a', kinds: ['ML', 'WEB'],
+      id: 'pcos', accent: '#f8b83a', kinds: ['ML', 'WEB'], cat: 'ML / HEALTH',
       title: 'PCOS Early-Risk Screening Assistant', sub: 'Explainable screening tool · Hacktivate 2.0', date: 'AUG 2026',
       stat: ['82.9%', 'recall from 15 self-reportable symptoms'],
       tech: ['Python', 'scikit-learn', 'SHAP', 'FastAPI', 'React'],
@@ -120,7 +170,7 @@
       aliases: ['pcos', 'hacktivate'],
     },
     {
-      id: 'digital-dark-spot', accent: '#a9c4f5', kinds: ['WEB', 'LLM'],
+      id: 'digital-dark-spot', accent: '#a9c4f5', kinds: ['WEB', 'LLM'], cat: 'AI / RESEARCH TOOL',
       title: 'Digital Dark Spot', sub: 'Research source checker', date: 'OCT 2026',
       stat: ['4', 'checks: gaps, conflicts, stale dates, copied content'],
       tech: ['Next.js', 'TypeScript', 'Groq API', 'Vercel'],
@@ -138,7 +188,7 @@
 
   // Non-project work, so the inventory can point at it too.
   const OTHER_WORK = [
-    { id: 'quest', title: 'ArthSaathi (IBM SkillsBuild internship)', section: '#quest', uses: ['JavaScript', 'IBM Cloud (watsonx.ai)', 'LLM APIs', 'RAG'] },
+    { id: 'quest', title: 'ArthSaathi (IBM SkillsBuild internship)', section: '#experience', uses: ['JavaScript', 'IBM Cloud (watsonx.ai)', 'LLM APIs', 'RAG'] },
     { id: 'icu', title: 'ICU Mortality Prediction (research)', section: '#research', uses: ['LightGBM'] },
   ];
 
@@ -165,7 +215,7 @@
       else if (key.startsWith('on')) node.addEventListener(key.slice(2), val);
       else node.setAttribute(key, val === true ? '' : val);
     }
-    for (const kid of kids.flat()) {
+    for (const kid of kids.flat(Infinity)) {
       if (kid == null || kid === false) continue;
       node.append(kid.nodeType ? kid : document.createTextNode(kid));
     }
@@ -271,7 +321,7 @@
   // ---------------------------------------------------------------
 
   const typed = $('#typed');
-  const ROLES = ['FULL-STACK DEVELOPER', 'MACHINE-LEARNING BUILDER', 'ROOT-CAUSE HUNTER', '6x HACKATHON BUILDER'];
+  const ROLES = ['SOFTWARE ENGINEER', 'FULL-STACK DEVELOPER', 'MACHINE-LEARNING BUILDER', 'ROOT-CAUSE HUNTER'];
   if (!reducedMotion) {
     let role = 0, pos = ROLES[0].length, dir = -1, wait = 22;
     setInterval(() => {
@@ -287,30 +337,46 @@
   // skills inventory
   // ---------------------------------------------------------------
 
+  // Featured projects come first (the first FEATURED_COUNT are shown by default).
+  const PROJECT_ORDER = ['offer-lens', 'netra-sahayak', 'salvage', 'digital-dark-spot', 'not-yet', 'pcos'];
+  const FEATURED_COUNT = 4;
+  PROJECTS.sort((a, b) => PROJECT_ORDER.indexOf(a.id) - PROJECT_ORDER.indexOf(b.id));
+
   const ALL_WORK = [...PROJECTS, ...OTHER_WORK];
   const workUsing = (skill) => ALL_WORK.filter((w) => w.uses.includes(skill));
 
-  const skillTabs = $('#skillTabs');
-  const skillGrid = $('#skillGrid');
+  const stackMap = $('#stackMap');
   const readout = $('#skillReadout');
-  let skillCat = 'ALL';
+  const openBranches = new Set(STACK.map((b) => b.name));
   let skillPicked = null;
 
-  function renderSkillTabs() {
-    skillTabs.replaceChildren(...['ALL', ...SKILLS.map((s) => s.cat)].map((cat) =>
-      el('button', {
-        class: 'tab', type: 'button', 'aria-pressed': String(cat === skillCat), text: cat,
-        onclick: () => { skillCat = cat; renderSkillTabs(); renderSkillGrid(); },
-      })));
+  function skillSlot(name) {
+    return el('button', {
+      class: 'slot', type: 'button', 'aria-pressed': String(name === skillPicked), text: name,
+      onclick: () => { skillPicked = name; renderStack(); renderReadout(); },
+    });
   }
 
-  function renderSkillGrid() {
-    const groups = skillCat === 'ALL' ? SKILLS : SKILLS.filter((s) => s.cat === skillCat);
-    skillGrid.replaceChildren(...groups.flatMap((g) => g.items).map((name) =>
-      el('button', {
-        class: 'slot', type: 'button', 'aria-pressed': String(name === skillPicked), text: name,
-        onclick: () => { skillPicked = name; renderSkillGrid(); renderReadout(); },
-      })));
+  function renderStack() {
+    stackMap.replaceChildren(...STACK.map((b, i) => {
+      const open = openBranches.has(b.name);
+      const bodyId = `branch-${i}`;
+      return el('article', { class: 'branch', style: `--accent:${b.accent}` },
+        el('button', {
+          class: 'branch__head', type: 'button', 'aria-expanded': String(open), 'aria-controls': bodyId,
+          onclick: () => { if (open) openBranches.delete(b.name); else openBranches.add(b.name); renderStack(); },
+        },
+        el('span', { class: 'branch__tier', text: b.tier }),
+        el('span', { class: 'branch__name', text: b.name }),
+        el('span', { class: 'branch__toggle', 'aria-hidden': 'true', text: open ? '−' : '+' })),
+        el('div', { class: 'branch__body', id: bodyId },
+          el('p', { class: 'branch__blurb', text: b.blurb }),
+          open ? b.groups.map((g) => [
+            g.label ? el('p', { class: 'branch__group', text: g.label }) : null,
+            el('div', { class: 'slots' }, g.items.map(skillSlot)),
+          ]) : null),
+      );
+    }));
   }
 
   function workButton(work) {
@@ -332,8 +398,7 @@
     );
   }
 
-  renderSkillTabs();
-  renderSkillGrid();
+  renderStack();
 
   // ---------------------------------------------------------------
   // projects
@@ -347,6 +412,7 @@
     const level = `LEVEL ${String(PROJECTS.indexOf(p) + 1).padStart(2, '0')}`;
     return el('article', { class: 'level', style: `--accent:${p.accent}` },
       el('p', { class: 'level__meta' }, el('span', { text: level }), el('span', { text: p.date })),
+      el('p', { class: 'level__cat' }, p.cat, p.live ? el('span', { class: 'level__live', text: 'LIVE PROJECT' }) : null),
       el('h3', { class: 'level__title', text: p.title }),
       el('p', { class: 'level__sub', text: p.sub }),
       el('p', { class: 'level__stat' }, el('b', { text: p.stat[0] }), el('span', { text: p.stat[1] })),
@@ -365,10 +431,153 @@
         class: 'tab', type: 'button', 'aria-pressed': String(kind === projKind), text: kind,
         onclick: () => { projKind = kind; renderProjects(); },
       })));
-    const shown = PROJECTS.filter((p) => projKind === 'ALL' || p.kinds.includes(projKind));
+    const matching = PROJECTS.filter((p) => projKind === 'ALL' || p.kinds.includes(projKind));
+    // "ALL" shows the featured four until the visitor asks for the rest
+    const shown = projKind === 'ALL' && !projShowAll ? matching.slice(0, FEATURED_COUNT) : matching;
     projGrid.replaceChildren(...shown.map(projectCard));
+    projMore.hidden = projKind !== 'ALL';
+    projMore.setAttribute('aria-expanded', String(projShowAll));
+    projMore.textContent = projShowAll ? 'SHOW FEATURED ONLY ↑' : `VIEW ALL ${PROJECTS.length} PROJECTS →`;
   }
+  const projMore = $('#projMore');
+  let projShowAll = false;
+  projMore.addEventListener('click', () => { projShowAll = !projShowAll; renderProjects(); });
   renderProjects();
+
+  // ---------------------------------------------------------------
+  // certifications
+  // ---------------------------------------------------------------
+
+  $('#certList').replaceChildren(...CERTS.map((c) =>
+    el('li', {},
+      el('div', {},
+        el('b', { text: c.name }),
+        el('span', { text: c.when ? `${c.by} · ${c.when}` : c.by }),
+        c.url ? extLink('VERIFY ↗', c.url, 'cert__verify') : null))));
+
+  // ---------------------------------------------------------------
+  // live stats (public GitHub + LeetCode numbers, cached for 6 hours)
+  // ---------------------------------------------------------------
+
+  const STATS_KEY = 'live-stats-v1';
+  const STATS_TTL = 6 * 60 * 60 * 1000;
+  const fmt = (n) => (typeof n === 'number' ? n.toLocaleString('en-IN') : '—');
+
+  async function getJson(url, ms = 15000) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ms);
+    try {
+      const res = await fetch(url, { signal: ctrl.signal });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return await res.json();
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function fetchGithub() {
+    const [user, contrib] = await Promise.all([
+      getJson(`https://api.github.com/users/${GITHUB_USER}`),
+      getJson(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USER}?y=last`).catch(() => null),
+    ]);
+    return {
+      repos: user.public_repos,
+      followers: user.followers,
+      since: new Date(user.created_at).getFullYear(),
+      total: contrib && contrib.total ? contrib.total.lastYear : null,
+      days: contrib && Array.isArray(contrib.contributions)
+        ? contrib.contributions.map((d) => [d.date, d.level])
+        : null,
+    };
+  }
+
+  // LeetCode has no public CORS API, so this tries two community proxies in turn.
+  async function fetchLeetcode() {
+    try {
+      const d = await getJson(`https://leetcode-api-faisalshohag.vercel.app/${LEETCODE_USER}`);
+      if (typeof d.totalSolved !== 'number') throw new Error('unexpected LeetCode response');
+      return { total: d.totalSolved, easy: d.easySolved, medium: d.mediumSolved, hard: d.hardSolved };
+    } catch {
+      const d = await getJson(`https://alfa-leetcode-api.onrender.com/${LEETCODE_USER}/solved`, 20000);
+      if (typeof d.solvedProblem !== 'number') throw new Error('unexpected LeetCode response');
+      return { total: d.solvedProblem, easy: d.easySolved, medium: d.mediumSolved, hard: d.hardSolved };
+    }
+  }
+
+  function renderGithub(gh) {
+    if (!gh) {
+      $('#ghNote').textContent = 'Live stats are taking a breather. Open the profile for the latest numbers.';
+      return;
+    }
+    $('#ghContrib').textContent = fmt(gh.total);
+    $('#ghRepos').textContent = fmt(gh.repos);
+    $('#ghFollowers').textContent = fmt(gh.followers);
+    $('#ghNote').textContent = `Building on GitHub since ${gh.since}.`;
+
+    // 12 columns x 7 rows, Sunday-aligned, ending with the current week
+    const grid = $('#ghGrid');
+    if (!gh.days) { grid.hidden = true; grid.previousElementSibling.hidden = true; return; }
+    const levels = new Map(gh.days);
+    const today = new Date();
+    const start = new Date(today);
+    start.setDate(today.getDate() - today.getDay() - 77);
+    const cells = [];
+    for (let i = 0; i < 84; i++) {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      const future = d > today;
+      cells.push(el('i', { 'data-l': future ? null : String(levels.get(key) || 0), style: future ? 'visibility:hidden' : null }));
+    }
+    grid.replaceChildren(...cells);
+  }
+
+  function renderLeetcode(lc) {
+    if (!lc) {
+      $('#lcNote').textContent = 'Live stats are taking a breather. Open the profile for the latest numbers.';
+      return;
+    }
+    $('#lcTotal').textContent = fmt(lc.total);
+    $('#lcMedium').textContent = fmt(lc.medium);
+    $('#lcHard').textContent = fmt(lc.hard);
+    $('#lcEasy').textContent = fmt(lc.easy);
+    $('#lcMedium2').textContent = fmt(lc.medium);
+    $('#lcHard2').textContent = fmt(lc.hard);
+    const pct = (n) => `${lc.total ? Math.round((n / lc.total) * 100) : 0}%`;
+    $('#lcEasyBar').style.width = pct(lc.easy);
+    $('#lcMediumBar').style.width = pct(lc.medium);
+    $('#lcHardBar').style.width = pct(lc.hard);
+    $('#lcNote').textContent = 'Solved split by difficulty.';
+  }
+
+  async function loadStats() {
+    let cached = null;
+    try { cached = JSON.parse(store.get(STATS_KEY) || 'null'); } catch { cached = null; }
+    const fresh = cached && Date.now() - cached.t < STATS_TTL;
+    if (cached) { renderGithub(cached.gh); renderLeetcode(cached.lc); }
+    if (fresh && cached.gh && cached.lc) return;
+
+    const [gh, lc] = await Promise.all([
+      fetchGithub().catch(() => (cached && cached.gh) || null),
+      fetchLeetcode().catch(() => (cached && cached.lc) || null),
+    ]);
+    renderGithub(gh);
+    renderLeetcode(lc);
+    if (gh || lc) store.set(STATS_KEY, JSON.stringify({ t: Date.now(), gh, lc }));
+  }
+
+  // fetch only when the visitor gets near the section
+  const liveSection = $('#achievements');
+  if ('IntersectionObserver' in window) {
+    const liveIo = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      liveIo.disconnect();
+      loadStats();
+    }, { rootMargin: '400px 0px' });
+    liveIo.observe(liveSection);
+  } else {
+    loadStats();
+  }
 
   const dialog = $('#projDialog');
   function openProject(id) {
@@ -402,6 +611,7 @@
   const navLinks = $$('.hud__nav a');
   const seen = new Set();
   const xpCount = $('#xpCount');
+  $('#xpTotal').textContent = tracked.length;
 
   if ('IntersectionObserver' in window) {
     // a section counts as "current" while it crosses the middle of the screen
@@ -469,7 +679,7 @@
   function skillReply(skill) {
     const used = workUsing(skill);
     if (!used.length) {
-      return { text: `Yes, ${skill} is in my toolkit. It's listed on my resume under ${SKILLS.find((s) => s.items.includes(skill)).cat.toLowerCase()}.`, links: [{ label: 'SEE INVENTORY', section: '#skills' }] };
+      return { text: `Yes, ${skill} is in my toolkit. It's listed on my resume under ${SKILLS.find((s) => s.items.includes(skill)).cat.toLowerCase()}.`, links: [{ label: 'SEE STACK', section: '#stack' }] };
     }
     return {
       text: `Yes! I've used ${skill} in ${used.length === 1 ? 'this build' : `${used.length} builds`}:\n${used.map((w) => `• ${w.title}`).join('\n')}`,
@@ -502,7 +712,7 @@
     {
       test: /(why .*hire|hire you|strength|strengths|why should|what makes you|stand out)/,
       reply: () => ({
-        text: 'Three reasons:\n• I ship: 6 hackathon projects in 2026 plus an IBM SkillsBuild internship.\n• I test: 100+ automated tests across my projects.\n• I dig: I enjoy tracing a failure to its root cause, and I document things so others can run what I build.',
+        text: 'Three reasons:\n• I ship: 6 hackathon projects in 2026 plus a completed IBM SkillsBuild internship.\n• I test: 100+ automated tests across my projects.\n• I dig: I enjoy tracing a failure to its root cause, and I document things so others can run what I build.',
         links: [{ label: 'SEE PROJECTS', section: '#projects' }, { label: 'EMAIL ME', href: LINKS.email }],
       }),
     },
@@ -517,14 +727,14 @@
       test: /\b(education|college|university|degree|cgpa|gpa|grade|grades|study|studying|studied|school|btech|b\.tech|coursework|marks|graduate|graduation|graduating)\b/,
       reply: () => ({
         text: 'I\'m doing a B.Tech in Computer Science & Engineering (AI & ML) at Dayananda Sagar University, Bengaluru (2024 to 2028, expected) with a CGPA of 9.00 / 10.\n\nBefore that: 95% in PCMB at MES Kishora Kendra PU College, and 99% in the State Board exams at MES Kishora Kendra High School.',
-        links: [{ label: 'TRAINING GROUNDS', section: '#about' }],
+        links: [{ label: 'EDUCATION', section: '#education' }],
       }),
     },
     {
       test: /\b(experience|intern|internship|ibm|arthsaathi|arth saathi|skillsbuild|edunet|job|work|working|worked)\b/,
       reply: () => ({
-        text: 'I\'m an AI & Agentic AI Intern with IBM SkillsBuild and Edunet Foundation (AICTE), 2026 to present.\n\nI built ArthSaathi, a retrieval-augmented agent for digital financial literacy. It answers questions on UPI, loans, budgeting and scam safety from RBI, NPCI and government documents, names its source, does EMI and budget maths with tool calling, and never asks for a PIN, OTP or CVV.',
-        links: [{ label: 'MAIN QUEST', section: '#quest' }],
+        text: 'I was an AI & Agentic AI Intern with IBM SkillsBuild and Edunet Foundation (AICTE) in 2026; the internship wrapped up in November 2026.\n\nThere I built ArthSaathi, a retrieval-augmented agent for digital financial literacy. It answers questions on UPI, loans, budgeting and scam safety from RBI, NPCI and government documents, names its source, does EMI and budget maths with tool calling, and never asks for a PIN, OTP or CVV.',
+        links: [{ label: 'EXPERIENCE', section: '#experience' }],
         chips: ['Top projects', 'RAG', 'Contact'],
       }),
     },
@@ -539,14 +749,14 @@
       test: /\b(achievement|achievements|award|awards|hackathon|hackathons|sih|smart india|trophy|trophies|win|won|prize)\b/,
       reply: () => ({
         text: 'In 2026 I built and submitted 6 hackathon projects, including the Razorpay AI Buildathon, Smart India Hackathon, Hacktivate 2.0 and the YouCam Skin AI Hackathon.\n\nFor Smart India Hackathon 2026, my team was selected for the internal (department-level) round with Netra Sahayak.',
-        links: [{ label: 'TROPHY ROOM', section: '#trophies' }],
+        links: [{ label: 'ACHIEVEMENTS', section: '#achievements' }],
       }),
     },
     {
       test: /\b(certificate|certificates|certification|certifications|certified|course|courses)\b/,
       reply: () => ({
-        text: 'Certifications: Cloud Computing (IBM), Problem Solving and Python (HackerRank), Machine Learning (Humans Care Foundation) and Introduction to Symbolic Math (MATLAB).',
-        links: [{ label: 'TROPHY ROOM', section: '#trophies' }],
+        text: `My certifications:\n${CERTS.map((c) => `• ${c.name} (${c.by})`).join('\n')}`,
+        links: [{ label: 'ACHIEVEMENTS', section: '#achievements' }],
       }),
     },
     {
@@ -567,7 +777,7 @@
     {
       test: /\b(ml|machine learning|ai|artificial intelligence|deep learning|models?|data science)\b/,
       reply: () => ({
-        text: `My ML / AI inventory: ${SKILLS[4].items.join(', ')}.\n\nBest examples: Netra Sahayak (EfficientNetV2-B2, QWK 0.876), SALVAGE (gradient boosting, ROC-AUC 0.97) and my ICU mortality research (LightGBM, AUROC 0.906).`,
+        text: `My AI / ML stack: ${SKILLS.find((s) => s.cat === 'AI / ML').items.join(', ')}.\n\nBest examples: Netra Sahayak (EfficientNetV2-B2, QWK 0.876), SALVAGE (gradient boosting, ROC-AUC 0.97) and my ICU mortality research (LightGBM, AUROC 0.906).`,
         links: [{ label: 'NETRA SAHAYAK', project: 'netra-sahayak' }, { label: 'SALVAGE', project: 'salvage' }, { label: 'RESEARCH', section: '#research' }],
       }),
     },
@@ -575,7 +785,7 @@
       test: /\b(skill|skills|stack|tech|technology|technologies|tools?|language|languages|framework|frameworks|know|good at|toolkit|inventory)\b/,
       reply: () => ({
         text: SKILLS.map((s) => `${s.cat}: ${s.items.join(', ')}`).join('\n\n'),
-        links: [{ label: 'OPEN INVENTORY', section: '#skills' }],
+        links: [{ label: 'OPEN STACK', section: '#stack' }],
         chips: ['Python', 'Docker', 'React', 'RAG', 'Top projects'],
       }),
     },
