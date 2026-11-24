@@ -1,4 +1,4 @@
-/* Aishwarya K G — pixel portfolio
+/* Aishwarya K G — portfolio
    One data set (below) feeds the skills inventory, the project levels
    and the chatbot, so they can never disagree with each other. */
 (() => {
@@ -249,17 +249,6 @@
   }
   const fanfare = () => [523, 659, 784, 1047].forEach((f, i) => blip(f, 0.12, i * 0.09));
 
-  const soundToggle = $('#soundToggle');
-  soundToggle.addEventListener('click', () => {
-    sfxOn = !sfxOn;
-    soundToggle.setAttribute('aria-pressed', String(sfxOn));
-    soundToggle.textContent = sfxOn ? 'SFX ON' : 'SFX OFF';
-    blip(880);
-  });
-  document.addEventListener('click', (e) => {
-    if (e.target.closest('a, button') && !e.target.closest('#soundToggle')) blip(520, 0.05);
-  });
-
   // ---------------------------------------------------------------
   // toast
   // ---------------------------------------------------------------
@@ -274,63 +263,32 @@
   }
 
   // ---------------------------------------------------------------
-  // title screen
+  // hero: greeting cycles through languages, polaroid cards take turns
   // ---------------------------------------------------------------
 
-  const boot = $('#boot');
-  if (!store.get('booted', 'sessionStorage')) {
-    boot.hidden = false;
-    document.body.classList.add('is-booting');
-    $('#bootStart').focus();
-    const start = () => {
-      if (!document.body.classList.contains('is-booting')) return;
-      document.body.classList.remove('is-booting');
-      store.set('booted', '1', 'sessionStorage');
-      document.removeEventListener('keydown', onKey);
-      if (reducedMotion) { boot.hidden = true; return; }
-      boot.classList.add('is-leaving');
-      setTimeout(() => { boot.hidden = true; }, 460);
-    };
-    const onKey = (e) => {
-      if (['Enter', ' ', 'Escape'].includes(e.key)) { e.preventDefault(); start(); }
-    };
-    boot.addEventListener('click', start);
-    document.addEventListener('keydown', onKey);
-  }
-
-  // ---------------------------------------------------------------
-  // day / night scene
-  // ---------------------------------------------------------------
-
-  const timeToggle = $('#timeToggle');
-  function setTime(time) {
-    document.documentElement.dataset.time = time;
-    const night = time === 'night';
-    timeToggle.textContent = night ? 'DUSK' : 'NIGHT';
-    timeToggle.setAttribute('aria-label', night ? 'Switch the scene to dusk' : 'Switch the scene to night');
-  }
-  setTime(store.get('scene-time') === 'night' ? 'night' : 'dusk');
-  timeToggle.addEventListener('click', () => {
-    const next = document.documentElement.dataset.time === 'night' ? 'dusk' : 'night';
-    setTime(next);
-    store.set('scene-time', next);
-  });
-
-  // ---------------------------------------------------------------
-  // typed role line
-  // ---------------------------------------------------------------
-
-  const typed = $('#typed');
-  const ROLES = ['SOFTWARE ENGINEER', 'FULL-STACK DEVELOPER', 'MACHINE-LEARNING BUILDER', 'ROOT-CAUSE HUNTER'];
-  if (!reducedMotion) {
-    let role = 0, pos = ROLES[0].length, dir = -1, wait = 22;
+  const GREETINGS = ['hello,', 'ನಮಸ್ಕಾರ,', 'नमस्ते,'];
+  const greet = $('#greet');
+  if (greet && !reducedMotion) {
+    let g = 0;
     setInterval(() => {
-      if (wait > 0) { wait--; return; }
-      pos += dir;
-      typed.textContent = ROLES[role].slice(0, pos);
-      if (pos === 0) { dir = 1; role = (role + 1) % ROLES.length; }
-      else if (pos === ROLES[role].length) { dir = -1; wait = 22; }
-    }, 70);
+      greet.classList.add('is-out');
+      setTimeout(() => {
+        g = (g + 1) % GREETINGS.length;
+        greet.textContent = GREETINGS[g];
+        greet.classList.remove('is-out');
+      }, 350);
+    }, 2600);
+  }
+
+  const polaroids = $$('.polaroid');
+  if (polaroids.length) polaroids[0].classList.add('is-shown');
+  if (polaroids.length > 1 && !reducedMotion) {
+    let k = 0;
+    setInterval(() => {
+      polaroids[k].classList.remove('is-shown');
+      k = (k + 1) % polaroids.length;
+      polaroids[k].classList.add('is-shown');
+    }, 3200);
   }
 
   // ---------------------------------------------------------------
@@ -409,7 +367,7 @@
   let projKind = 'ALL';
 
   function projectCard(p) {
-    const level = `LEVEL ${String(PROJECTS.indexOf(p) + 1).padStart(2, '0')}`;
+    const level = String(PROJECTS.indexOf(p) + 1).padStart(2, '0');
     return el('article', { class: 'level', style: `--accent:${p.accent}` },
       el('p', { class: 'level__meta' }, el('span', { text: level }), el('span', { text: p.date })),
       el('p', { class: 'level__cat' }, p.cat, p.live ? el('span', { class: 'level__live', text: 'LIVE PROJECT' }) : null),
@@ -583,7 +541,7 @@
   function openProject(id) {
     const p = PROJECTS.find((x) => x.id === id);
     if (!p) return;
-    $('#projLevel').textContent = `LEVEL ${String(PROJECTS.indexOf(p) + 1).padStart(2, '0')} · ${p.date}`;
+    $('#projLevel').textContent = `${String(PROJECTS.indexOf(p) + 1).padStart(2, '0')} · ${p.date}`;
     $('#projTitle').textContent = p.title;
     $('#projSub').textContent = p.sub;
     $('#projTech').replaceChildren(...p.tech.map((t) => el('li', { text: t })));
@@ -608,10 +566,8 @@
   // ---------------------------------------------------------------
 
   const tracked = $$('[data-track]');
-  const navLinks = $$('.hud__nav a');
+  const navLinks = $$('.nav a');
   const seen = new Set();
-  const xpCount = $('#xpCount');
-  $('#xpTotal').textContent = tracked.length;
 
   if ('IntersectionObserver' in window) {
     // a section counts as "current" while it crosses the middle of the screen
@@ -620,13 +576,6 @@
         if (!entry.isIntersecting) continue;
         const id = entry.target.id;
         navLinks.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
-        if (seen.has(id) || document.body.classList.contains('is-booting')) continue;
-        seen.add(id);
-        xpCount.textContent = seen.size;
-        if (seen.size === tracked.length) {
-          toast('ACHIEVEMENT UNLOCKED: EXPLORED THE WHOLE MAP');
-          fanfare();
-        }
       }
     }, { rootMargin: '-45% 0px -45% 0px' });
     tracked.forEach((sec) => sectionIo.observe(sec));
@@ -642,11 +591,11 @@
         setTimeout(() => node.classList.remove('reveal', 'is-in'), 420);
       }
     }, { rootMargin: '0px 0px -8% 0px' });
-    $$('.sec .px-box').forEach((node) => { node.classList.add('reveal'); revealIo.observe(node); });
+    $$('.sec .card').forEach((node) => { node.classList.add('reveal'); revealIo.observe(node); });
   }
 
   // ---------------------------------------------------------------
-  // chatbot: a scripted NPC that answers from the data above
+  // chatbot: a scripted assistant that answers from the data above
   // ---------------------------------------------------------------
 
   const chat = $('#chat');
@@ -691,15 +640,15 @@
   const INTENTS = [
     {
       test: /^(hi|hii+|hey|hello|yo|hola|namaste|sup|good (morning|afternoon|evening))\b/,
-      reply: () => ({ text: 'Hey there, traveller! I\'m Pixel Aishwarya, the 8-bit version of Aishwarya. Ask me about my projects, skills, internship or research.' }),
+      reply: () => ({ text: 'Hey there! I\'m Aishwarya\'s little assistant bot. Ask me about my projects, skills, internship or research.' }),
     },
     {
       test: /\b(thanks|thank you|thx|ty|awesome|cool|nice|great)\b/,
-      reply: () => ({ text: 'Anytime! +10 XP for good manners. Anything else you want to know?' }),
+      reply: () => ({ text: 'Anytime! >ω< Anything else you want to know?' }),
     },
     {
       test: /\b(bye|goodbye|see you|cya)\b/,
-      reply: () => ({ text: 'Game saved. Come back any time, and feel free to send a real message too.', links: [{ label: 'EMAIL ME', href: LINKS.email }] }),
+      reply: () => ({ text: 'Bye for now! Come back any time, and feel free to send a real message too.', links: [{ label: 'EMAIL ME', href: LINKS.email }] }),
     },
     {
       test: /\b(another project|random project|surprise me)\b/,
@@ -762,7 +711,7 @@
     {
       test: /\b(test|tests|testing|tested|quality|debug|debugging|bugs?)\b/,
       reply: () => ({
-        text: 'Testing is my favourite boss fight. Across my projects there are 100+ automated tests: 35 offline tests in Offer Lens, 50+ unit and instrumentation tests in Netra Sahayak, and 22 in Not Yet. AI and network calls are stubbed, so the tests run offline.',
+        text: 'Testing is honestly my favourite part. Across my projects there are 100+ automated tests: 35 offline tests in Offer Lens, 50+ unit and instrumentation tests in Netra Sahayak, and 22 in Not Yet. AI and network calls are stubbed, so the tests run offline.',
         links: [{ label: 'OFFER LENS', project: 'offer-lens' }, { label: 'NETRA SAHAYAK', project: 'netra-sahayak' }],
       }),
     },
@@ -770,7 +719,7 @@
       test: /\b(project|projects|built|build|builds|made|portfolio|apps?|showcase|top|best|favourite|favorite)\b/,
       reply: () => ({
         text: `I've got six levels to show you:\n${PROJECTS.map((p, i) => `${i + 1}. ${p.title}: ${p.sub.split(' · ')[0]}`).join('\n')}\n\nName one and I'll tell you more.`,
-        links: [{ label: 'LEVEL SELECT', section: '#projects' }],
+        links: [{ label: 'SEE PROJECTS', section: '#projects' }],
         chips: ['Offer Lens', 'Netra Sahayak', 'SALVAGE', 'Not Yet', 'PCOS', 'Digital Dark Spot'],
       }),
     },
@@ -792,7 +741,7 @@
     {
       test: /\b(who|about|yourself|introduce|intro|summary|tell me|bio)\b/,
       reply: () => ({
-        text: 'I\'m Pixel Aishwarya, the 8-bit stand-in for Aishwarya K G: a Computer Science (AI & ML) undergraduate at Dayananda Sagar University in Bengaluru with a 9.00 CGPA.\n\nI build, test, deploy and debug full-stack and machine-learning systems, and I like tracing a failure all the way to its root cause.',
+        text: 'I\'m Aishwarya\'s assistant bot, here to tell you about Aishwarya K G: a Computer Science (AI & ML) undergraduate at Dayananda Sagar University in Bengaluru with a 9.00 CGPA.\n\nI build, test, deploy and debug full-stack and machine-learning systems, and I like tracing a failure all the way to its root cause.',
         links: [{ label: 'PLAYER BIO', section: '#about' }],
       }),
     },
@@ -814,7 +763,7 @@
     },
     {
       test: /\b(are you (an? )?(ai|bot|robot|human|real)|chatgpt|llm powered)\b/,
-      reply: () => ({ text: 'I\'m a scripted NPC, not an AI model. Every answer comes straight from Aishwarya\'s resume, so I can\'t improvise, but I also can\'t make things up.' }),
+      reply: () => ({ text: 'I\'m a scripted bot, not an AI model. Every answer comes straight from Aishwarya\'s resume, so I can\'t improvise, but I also can\'t make things up.' }),
     },
   ];
 
@@ -836,7 +785,7 @@
     if (intent) return intent.reply();
 
     return {
-      text: 'Hmm, that one isn\'t in my dialogue tree. Try asking about my projects, skills, internship, research or how to contact me.',
+      text: 'Hmm, that one isn\'t something I know yet. Try asking about my projects, skills, internship, research or how to contact me.',
       chips: DEFAULT_CHIPS,
     };
   }
@@ -911,13 +860,13 @@
   function toggleChat(open = chat.hidden) {
     chat.hidden = !open;
     chatFab.setAttribute('aria-expanded', String(open));
-    chatFab.setAttribute('aria-label', open ? 'Close chat' : 'Open chat with Pixel Aishwarya');
+    chatFab.setAttribute('aria-label', open ? 'Close chat' : 'Open chat with Aishwarya\'s assistant');
     chatHint.hidden = true;
     if (!open) return;
     if (!greeted) {
       greeted = true;
       chatQueue = chatQueue.then(() => addBotMsg({
-        text: 'Hi! I\'m Pixel Aishwarya, the 8-bit version of Aishwarya.\nAsk me about my projects, skills, internship or research, or tap a suggestion below.',
+        text: 'Hi! I\'m Aishwarya\'s assistant bot >ω<\nAsk me about my projects, skills, internship or research, or tap a suggestion below.',
       }));
     }
     chatInput.focus({ preventScroll: true });
@@ -932,7 +881,7 @@
 
   // a one-time nudge towards the chat
   setTimeout(() => {
-    if (chat.hidden && !greeted && !document.body.classList.contains('is-booting')) {
+    if (chat.hidden && !greeted && true) {
       chatHint.hidden = false;
       setTimeout(() => { chatHint.hidden = true; }, 6000);
     }
